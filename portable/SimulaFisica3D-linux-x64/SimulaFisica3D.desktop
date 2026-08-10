@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=SimulaFisica 3D
+Comment=Simulador universitario de Fisica Computacional em JavaFX
+Exec=sh -c 'cd "$(dirname "$1")" && ./SimulaFisica3D.sh' launcher %k
+Terminal=false
+Categories=Education;Science;
+StartupNotify=true
