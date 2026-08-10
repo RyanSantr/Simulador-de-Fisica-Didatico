@@ -1,0 +1,22 @@
+SIMULAFISICA 3D - COMO LEVAR NO PENDRIVE
+
+1. Copie esta pasta inteira para o pendrive:
+   feira-fisica-computacional-java
+
+2. Para abrir no outro computador, execute:
+   RODAR_SIMULAFISICA.bat
+
+3. Se o computador da faculdade tiver Java liberado, o app abre direto.
+
+4. Se o computador nao tiver Java ou bloquear instalacao:
+   - coloque um JDK 21 portatil dentro desta pasta;
+   - renomeie a pasta do JDK para runtime;
+   - o caminho deve ficar assim:
+     feira-fisica-computacional-java\runtime\bin\java.exe
+
+5. Nao precisa levar IntelliJ, Gradle nem internet para executar esta pasta
+   quando ela ja estiver com Java disponivel.
+
+IMPORTANTE:
+Nao copie so o arquivo .bat. Copie a pasta inteira, incluindo bin, lib e,
+se necessario, runtime.

@@ -1,0 +1,259 @@
+/* ══════════════════════════════════════════════════════════════════════
+   SimulaFisica 3D — tema escuro da interface
+   ══════════════════════════════════════════════════════════════════════
+
+   Carregado por Engine.start(). Estilos embutidos no codigo (setStyle) tem
+   prioridade sobre esta folha, entao ela cuida do que nao da para resolver
+   inline: barras de rolagem, cabecalhos de secao retratil e as classes dos
+   componentes novos do painel de resultados.
+
+   Paleta (mesma do renderer 3D):
+     fundo profundo  #050816   fundo painel   #111827
+     cartao          #0b1223   cartao escuro  #020617
+     borda           #334155   borda sutil    #253449
+     texto           #e0f2fe   texto suave    #94a3b8
+     destaque        #7dd3fc   acento         #2563eb
+   ══════════════════════════════════════════════════════════════════════ */
+
+.root {
+    -fx-font-family: "Segoe UI", "Arial", sans-serif;
+}
+
+/* ── Barras de rolagem ────────────────────────────────────────────────
+   O padrao do JavaFX e claro e destoa do resto da interface.            */
+
+.scroll-pane {
+    -fx-background-color: transparent;
+    -fx-background: transparent;
+}
+
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar:vertical,
+.scroll-bar:horizontal {
+    -fx-background-color: #0b1223;
+    -fx-background-radius: 0;
+    -fx-padding: 2;
+}
+
+.scroll-bar:vertical .thumb,
+.scroll-bar:horizontal .thumb {
+    -fx-background-color: #334155;
+    -fx-background-radius: 5;
+}
+
+.scroll-bar:vertical .thumb:hover,
+.scroll-bar:horizontal .thumb:hover {
+    -fx-background-color: #475569;
+}
+
+.scroll-bar:vertical .thumb:pressed,
+.scroll-bar:horizontal .thumb:pressed {
+    -fx-background-color: #2563eb;
+}
+
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+}
+
+.scroll-bar .increment-arrow,
+.scroll-bar .decrement-arrow {
+    -fx-shape: " ";
+    -fx-padding: 0;
+}
+
+.corner {
+    -fx-background-color: #0b1223;
+}
+
+/* ── Listas suspensas (ComboBox) ──────────────────────────────────────
+   A lista que abre ao clicar vive num popup separado, mas o JavaFX liga
+   esse popup ao ComboBox para efeito de CSS. Resultado: ela herdava o
+   "-fx-text-fill" claro definido inline nos controles e continuava com o
+   fundo branco padrao — texto claro sobre fundo claro, ilegivel. Aqui o
+   fundo do popup e das celulas vai para a paleta escura do app.          */
+
+.combo-box-popup > .list-view {
+    -fx-background-color: #0b1223;
+    -fx-border-color: #475569;
+    -fx-border-width: 1;
+    -fx-background-radius: 6;
+    -fx-border-radius: 6;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.55), 12, 0, 0, 4);
+}
+
+.combo-box-popup > .list-view > .virtual-flow > .clipped-container > .sheet > .list-cell {
+    -fx-background-color: #0b1223;
+    -fx-text-fill: #e0f2fe;
+    -fx-font-family: monospace;
+    -fx-font-size: 13px;
+    -fx-padding: 8 12;
+}
+
+/* Linha sob o cursor e linha atualmente escolhida. */
+.combo-box-popup > .list-view > .virtual-flow > .clipped-container > .sheet > .list-cell:filled:hover {
+    -fx-background-color: #1d2d4a;
+    -fx-text-fill: #ffffff;
+}
+
+.combo-box-popup > .list-view > .virtual-flow > .clipped-container > .sheet > .list-cell:filled:selected,
+.combo-box-popup > .list-view > .virtual-flow > .clipped-container > .sheet > .list-cell:filled:selected:hover {
+    -fx-background-color: #2563eb;
+    -fx-text-fill: #ffffff;
+}
+
+/* Texto do valor escolhido, exibido no proprio ComboBox fechado. */
+.combo-box > .list-cell {
+    -fx-text-fill: #e0f2fe;
+    -fx-background-color: transparent;
+    -fx-padding: 4 8;
+}
+
+.combo-box .arrow,
+.combo-box .arrow-button .arrow {
+    -fx-background-color: #7dd3fc;
+}
+
+.combo-box:hover {
+    -fx-border-color: #60a5fa;
+}
+
+/* Texto de sugestao quando nada foi escolhido ainda. */
+.combo-box > .text-field,
+.combo-box .text-input {
+    -fx-text-fill: #e0f2fe;
+    -fx-prompt-text-fill: #94a3b8;
+}
+
+/* ── Menus de contexto e dicas ────────────────────────────────────────
+   Mesmo problema do popup: nascem com o tema claro padrao do JavaFX.     */
+
+.context-menu {
+    -fx-background-color: #0b1223;
+    -fx-border-color: #475569;
+    -fx-background-radius: 6;
+    -fx-border-radius: 6;
+}
+
+.context-menu .menu-item .label {
+    -fx-text-fill: #e0f2fe;
+}
+
+.context-menu .menu-item:focused {
+    -fx-background-color: #2563eb;
+}
+
+.tooltip {
+    -fx-background-color: #0b1223;
+    -fx-text-fill: #e0f2fe;
+    -fx-border-color: #475569;
+    -fx-border-radius: 6;
+    -fx-background-radius: 6;
+    -fx-font-family: monospace;
+    -fx-font-size: 12px;
+    -fx-padding: 8 10;
+}
+
+/* ── Secoes retrateis do painel lateral ───────────────────────────────
+   Agrupam os blocos do painel para o usuario recolher o que nao usa.    */
+
+.sim-section {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-text-fill: #93c5fd;
+}
+
+.sim-section > .title {
+    -fx-background-color: #0b1223;
+    -fx-border-color: #253449;
+    -fx-border-width: 1 0;
+    -fx-padding: 9 12;
+    -fx-font-family: monospace;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #93c5fd;
+    -fx-cursor: hand;
+}
+
+.sim-section > .title:hover {
+    -fx-background-color: #141d33;
+}
+
+.sim-section > .title > .arrow-button > .arrow {
+    -fx-background-color: #7dd3fc;
+}
+
+.sim-section > *.content {
+    -fx-background-color: #111827;
+    -fx-border-color: transparent;
+    -fx-padding: 10 14 12 14;
+}
+
+/* ── Painel de resultados ─────────────────────────────────────────────
+   Substitui o bloco unico de texto por linhas rotulo/valor legiveis.    */
+
+.telemetry-box {
+    -fx-background-color: #020617;
+    -fx-border-color: #253449;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+    -fx-padding: 12 14 14 14;
+}
+
+/* Linha de destaque no topo: o estado atual do experimento. */
+.telemetry-headline {
+    -fx-font-family: monospace;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #f0f9ff;
+    -fx-background-color: #0f2740;
+    -fx-border-color: #1d4ed8;
+    -fx-border-width: 0 0 0 3;
+    -fx-border-radius: 0 5 5 0;
+    -fx-background-radius: 0 5 5 0;
+    -fx-padding: 8 12;
+}
+
+.telemetry-section {
+    -fx-font-family: monospace;
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #64a8d8;
+    -fx-padding: 10 0 2 0;
+}
+
+.telemetry-label {
+    -fx-font-family: monospace;
+    -fx-font-size: 12.5px;
+    -fx-text-fill: #9fb3c8;
+}
+
+.telemetry-value {
+    -fx-font-family: monospace;
+    -fx-font-size: 12.5px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #e0f2fe;
+}
+
+/* Valor que merece atencao (chegada, quebra, vitoria...). */
+.telemetry-value-strong {
+    -fx-text-fill: #7dd3fc;
+}
+
+.telemetry-note {
+    -fx-font-family: monospace;
+    -fx-font-size: 11.5px;
+    -fx-text-fill: #8fa3b8;
+    -fx-padding: 6 0 2 0;
+}
+
+/* Fio separando as linhas, para o olho acompanhar rotulo -> valor. */
+.telemetry-row {
+    -fx-border-color: #16202f;
+    -fx-border-width: 0 0 1 0;
+    -fx-padding: 4 0 4 0;
+}

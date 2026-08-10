@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SimulaFísica 3D — Apresentação</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { height: 100%; background: #0b1020; color: #e0f2fe; font-family: 'Segoe UI', Arial, sans-serif; overflow: hidden; }
+  .slide {
+    display: none; height: 100vh; width: 100vw;
+    padding: 6vh 8vw; flex-direction: column; justify-content: center;
+    background: linear-gradient(180deg, #101923 0%, #091118 55%, #05070d 100%);
+  }
+  .slide.active { display: flex; }
+  h1 { font-size: 3.2rem; color: #7dd3fc; margin-bottom: 1rem; }
+  h2 { font-size: 2.3rem; color: #bfdbfe; margin-bottom: 1.6rem; border-left: 6px solid #2563eb; padding-left: 16px; }
+  h3 { color: #93c5fd; margin: 1rem 0 .4rem; }
+  p, li { font-size: 1.25rem; line-height: 1.65; color: #cbd5e1; }
+  ul { margin-left: 1.4rem; margin-bottom: .8rem; }
+  li { margin-bottom: .45rem; }
+  .accent { color: #7dd3fc; font-weight: 600; }
+  .tag { display: inline-block; background: #1f2937; border: 1px solid #475569; border-radius: 6px;
+         padding: 4px 12px; margin: 4px 6px 4px 0; font-size: 1.05rem; color: #e5e7eb; font-family: monospace; }
+  .subtitle { font-size: 1.5rem; color: #94a3b8; }
+  .card { background: rgba(2,6,23,0.6); border: 1px solid #334155; border-radius: 10px; padding: 18px 22px; margin-top: 1rem; }
+  code { font-family: monospace; background: #020617; border: 1px solid #334155; border-radius: 5px;
+         padding: 2px 8px; color: #7dd3fc; font-size: 1.05rem; }
+  .footer { position: fixed; bottom: 16px; right: 24px; color: #64748b; font-size: 1rem; font-family: monospace; }
+  .hint { position: fixed; bottom: 16px; left: 24px; color: #64748b; font-size: 1rem; font-family: monospace; }
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 28px; }
+  .center { text-align: center; }
+  .big-emoji { font-size: 4.5rem; margin-bottom: 1.2rem; }
+</style>
+</head>
+<body>
+
+<section class="slide active center">
+  <div class="big-emoji">🪐</div>
+  <h1>SimulaFísica 3D</h1>
+  <p class="subtitle">Laboratório de física computacional com engine 3D própria,<br>
+  escrito do zero em Java + JavaFX</p>
+  <p style="margin-top:2rem">
+    <span class="tag">Java 21</span><span class="tag">JavaFX 21</span>
+    <span class="tag">Engine 3D por software</span><span class="tag">Física 120 Hz</span>
+  </p>
+</section>
+
+<section class="slide">
+  <h2>O que é o projeto</h2>
+  <ul>
+    <li>Um simulador educacional onde cada experimento de física é um <span class="accent">módulo interativo 3D</span> com parâmetros ajustáveis, telemetria e gráfico em tempo real.</li>
+    <li>Nada de motor pronto: a <span class="accent">renderização 3D é feita por software</span> (projeção perspectiva, painter's algorithm, flat shading, sombras planares) direto num canvas JavaFX.</li>
+    <li>A física roda em <span class="accent">timestep fixo de 120 Hz</span> com integração de Euler semi-implícito, colisões com restituição e atrito por material.</li>
+    <li>Modo <span class="accent">sandbox</span>: desenhe formas 2D no painel e elas viram corpos rígidos 3D dentro da engine.</li>
+  </ul>
+</section>
+
+<section class="slide">
+  <h2>Módulos de simulação</h2>
+  <div class="grid2">
+    <ul>
+      <li><span class="accent">Queda Livre</span> — MRUV com gravidade ajustável</li>
+      <li><span class="accent">Projéteis</span> — lançamento com arrasto por meio (ar, água, óleo...)</li>
+      <li><span class="accent">Colisões</span> — momento e energia por material</li>
+      <li><span class="accent">Plano Inclinado</span> — peso × atrito na rampa</li>
+      <li><span class="accent">Pêndulo</span> — pêndulo simples não linear</li>
+    </ul>
+    <ul>
+      <li><span class="accent">Mola</span> — oscilador massa-mola (Lei de Hooke)</li>
+      <li><span class="accent">Sistema Solar</span> — órbitas keplerianas com dados NASA/JPL, texturas, luas
+          <br>+ <b>🚀 missões de foguete entre planetas</b></li>
+      <li><span class="accent">Cabo de Guerra</span> — jogo de força para 2 jogadores</li>
+    </ul>
+  </div>
+</section>
+
+<section class="slide">
+  <h2>🚀 Missões de foguete no Sistema Solar</h2>
+  <p>Dentro do próprio Sistema Solar: escolha o <span class="accent">modelo do foguete</span>, o <span class="accent">planeta de partida</span> e o <span class="accent">de destino</span>. A nave divide a cena e o integrador com os planetas reais.</p>
+  <ul>
+    <li><span class="accent">Transferência de Hohmann</span> — meia elipse ligando as duas órbitas, o caminho de menor energia entre planetas.</li>
+    <li><span class="accent">Janela de lançamento</span> — a nave espera acoplada ao planeta de partida até o ângulo de fase correto, como as agências espaciais fazem.</li>
+    <li><span class="accent">Mira de Lambert</span> — aponta para onde o planeta <i>estará</i> na chegada, não onde ele está agora.</li>
+    <li><span class="accent">Seis lançadores reais</span> com o delta-v que cada um entrega: se não der, a missão não sai do chão.</li>
+  </ul>
+  <div class="card"><p>Foguete 3D orientado pela velocidade, chama do motor, rastro e rota prevista desenhada na cena.</p></div>
+</section>
+
+<section class="slide">
+  <h2>Até onde cada foguete chega</h2>
+  <div class="grid2">
+    <div>
+      <h3>Lançadores</h3>
+      <ul style="font-size:1.1rem">
+        <li>Ariane 5 ECA — 3,1 km/s</li>
+        <li>Saturn V — 4,0 km/s</li>
+        <li>Falcon Heavy — 4,8 km/s</li>
+        <li>SLS Block 1B — 5,6 km/s</li>
+        <li>Starship — 7,2 km/s</li>
+        <li>Atlas V 551 — 9,2 km/s</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Rotas verificadas</h3>
+      <ul style="font-size:1.1rem">
+        <li>Terra → Vênus: 2,50 km/s, <b>117 d</b></li>
+        <li>Terra → Marte: 2,94 km/s, <b>231 d</b></li>
+        <li>Marte → Terra: 2,65 km/s, <b>231 d</b></li>
+        <li>Terra → Júpiter: 8,79 km/s, <b>903 d</b></li>
+        <li>Terra → Saturno: 10,29 km/s — <b>fora do alcance</b></li>
+      </ul>
+    </div>
+  </div>
+  <div class="card"><p>Nenhum foguete chega a Saturno direto — e isso está certo: a Cassini precisou de quatro assistências gravitacionais. Mercúrio, apesar de perto, exige 7,5 km/s porque é preciso <b>frear</b> muito contra a gravidade solar.</p></div>
+</section>
+
+<section class="slide">
+  <h2>Física validada, não só bonita</h2>
+  <ul>
+    <li>Dados orbitais e físicos de <span class="accent">NASA/JPL</span> (elementos keplerianos J2000, períodos, gravidade superficial).</li>
+    <li>Bateria de <span class="accent">validações numéricas automatizadas</span> (<code>./gradlew validatePhysics</code>) compara cada módulo com a solução analítica:</li>
+  </ul>
+  <div class="grid2">
+    <ul>
+      <li>Tempo de queda √(2h/g)</li>
+      <li>Alcance de projétil v²·sen(2θ)/g</li>
+      <li>Energia não cresce em colisões</li>
+      <li>Aceleração na rampa g(senθ − μcosθ)</li>
+    </ul>
+    <ul>
+      <li>Período do pêndulo</li>
+      <li>Aceleração de Hooke −kx/m</li>
+      <li>Velocidade orbital da Terra ≈ 29,8 km/s</li>
+      <li><b>Novo:</b> 4 rotas de foguete + delta-v insuficiente</li>
+    </ul>
+  </div>
+</section>
+
+<section class="slide">
+  <h2>O que foi feito nesta versão</h2>
+  <ul>
+    <li>🚀 <span class="accent">Missões de foguete no Sistema Solar</span>: seis lançadores reais, janela de lançamento, mira de Lambert, foguete 3D com rastro e rota prevista.</li>
+    <li>🐛 <span class="accent">Vazamento de memória</span>: cada reset acumulava um observador fantasma que nunca era liberado.</li>
+    <li>🐛 <span class="accent">Vazamento de threads</span>: cada objeto desenhado criava uma thread só para dormir 80 ms.</li>
+    <li>🔬 <span class="accent">Cinco bugs de física</span> achados por teste numérico — chegada falsa no meio do voo, erro de mira de 0,25 AU, solver travado num modo nulo geométrico (ver próximo slide).</li>
+    <li>🧹 <span class="accent">Telemetria polimórfica</span>: a cadeia de 8 <code>instanceof</code> no Engine virou um método na classe base.</li>
+    <li>⚡ <span class="accent">Otimizações</span>: ~24.000 alocações/segundo eliminadas no renderizador e nos cálculos de distância.</li>
+    <li>📦 <span class="accent">Distribuição Windows</span> (antes só Linux/macOS) + correção do repasse de argumentos no Linux.</li>
+  </ul>
+</section>
+
+<section class="slide">
+  <h2>🔬 O bug mais interessante</h2>
+  <p>A mira do foguete não convergia. O solver pedia correções de <span class="accent">0,04 AU/dia</span> — mais que a própria velocidade orbital da Terra (0,0172).</p>
+  <div class="card">
+    <p><b>A causa era geométrica, não numérica.</b></p>
+    <p style="margin-top:.8rem">Uma transferência de Hohmann liga dois pontos separados por ~180°. Girar a trajetória em torno do eixo que passa pela partida mantém <i>os dois extremos no lugar</i> — ou seja, adicionar velocidade fora do plano <b>não move o ponto de chegada</b>.</p>
+    <p style="margin-top:.8rem">Essa direção é um <span class="accent">modo nulo</span>: o solver tentava corrigir num eixo que não produz efeito algum.</p>
+  </div>
+  <p style="margin-top:1rem"><b>Solução:</b> resolver apenas nas duas direções úteis do plano orbital, por mínimos quadrados. Convergiu em 4 iterações: erro 0,432 → 0,058 → <span class="accent">0,036 AU</span>.</p>
+  <p>O resíduo de 0,036 AU é exatamente a componente fora do plano — coerente com a inclinação de 1,85° de Marte e <b>fisicamente incorrigível</b> com um único impulso. Missões reais gastam delta-v extra numa manobra dedicada de mudança de plano.</p>
+</section>
+
+<section class="slide">
+  <h2>Distribuições portáteis</h2>
+  <p>Zips prontos em <code>build/distributions/</code> — extrair e executar, sem IDE:</p>
+  <div class="card">
+    <p>🪟 <span class="accent">SimulaFisica3D-windows-x64.zip</span> → <code>SimulaFisica3D.bat</code></p>
+    <p>🐧 <span class="accent">SimulaFisica3D-linux-x64.zip</span> → <code>SimulaFisica3D.sh</code></p>
+  </div>
+  <h3>Como gerar</h3>
+  <p><code>./gradlew portableZip_windows-x64</code> &nbsp;|&nbsp; <code>./gradlew portableZip_linux-x64</code> &nbsp;|&nbsp; <code>./gradlew portableZipAll</code></p>
+  <h3>Requisito</h3>
+  <p>Java 21 instalado — ou um JDK portátil dentro da pasta <code>runtime/</code> (funciona até em PC bloqueado).</p>
+</section>
+
+<section class="slide center">
+  <div class="big-emoji">🎓</div>
+  <h1 style="font-size:2.6rem">Do desenho no papel à órbita de Netuno</h1>
+  <p class="subtitle" style="margin-top:1rem">Engine própria + física validada + 8 experimentos interativos<br><br>
+  <code>./gradlew run --args="--module=solar_system"</code></p>
+</section>
+
+<div class="hint">← → ou clique para navegar</div>
+<div class="footer" id="counter">1 / 10</div>
+
+<script>
+  const slides = document.querySelectorAll('.slide');
+  let current = 0;
+  function show(i) {
+    current = Math.max(0, Math.min(slides.length - 1, i));
+    slides.forEach((s, k) => s.classList.toggle('active', k === current));
+    document.getElementById('counter').textContent = (current + 1) + ' / ' + slides.length;
+  }
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') show(current + 1);
+    if (e.key === 'ArrowLeft' || e.key === 'PageUp') show(current - 1);
+    if (e.key === 'Home') show(0);
+    if (e.key === 'End') show(slides.length - 1);
+  });
+  document.addEventListener('click', e => {
+    show(e.clientX > window.innerWidth * 0.3 ? current + 1 : current - 1);
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,29 @@
+SIMULAFISICA 3D - VERSAO WINDOWS
+
+Como abrir sem IntelliJ ou VS Code:
+
+1. Extraia a pasta SimulaFisica3D-windows-x64.
+2. Clique duas vezes em SimulaFisica3D.bat.
+3. Se o Windows SmartScreen avisar, clique em "Mais informacoes" e "Executar assim mesmo".
+
+Se nao abrir por falta de Java:
+
+- Instale Java 21 no Windows (https://adoptium.net); ou
+- Coloque um JDK 21 Windows portatil dentro desta pasta com o nome runtime.
+
+O caminho esperado para Java portatil e:
+
+SimulaFisica3D-windows-x64/runtime/bin/java.exe
+
+O pacote ja inclui as bibliotecas JavaFX para Windows. Nao precisa abrir IDE.
+
+Dica: para abrir direto em um modulo, rode no Prompt de Comando:
+
+SimulaFisica3D.bat --module=solar_system
+SimulaFisica3D.bat --module=projectile
+
+Modulos disponiveis: free_fall, projectile, collisions, inclined_plane,
+pendulum, spring, solar_system, tug_of_war.
+
+As missoes de foguete entre planetas ficam dentro do modulo solar_system:
+escolha o modelo do foguete, o planeta de partida e o de destino.
